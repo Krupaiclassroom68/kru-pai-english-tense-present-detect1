@@ -1,0 +1,1364 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Present Simple • Sentence Detective (Premium 30)</title>
+  <style>
+    :root{
+      --bg1:#05010a;
+      --bg2:#0c0316;
+
+      --card: rgba(255,255,255,.06);
+      --card2: rgba(0,0,0,.35);
+
+      --stroke: rgba(180,120,255,.22);
+      --stroke2: rgba(200,150,255,.45);
+
+      --text: rgba(255,255,255,.96);
+      --muted: rgba(220,200,255,.75);
+
+      --good: #c78bff;     /* cyber purple */
+      --bad: #ff4d6d;      /* neon red */
+      --warn:#ffd36a;
+
+      --shadow: 0 22px 70px rgba(0,0,0,.75);
+    }
+*{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+      color:var(--text);
+      min-height:100vh;
+      background:
+        radial-gradient(900px 600px at 20% 10%, rgba(190,120,255,.18), transparent 60%),
+        radial-gradient(700px 500px at 85% 15%, rgba(120,60,200,.16), transparent 55%),
+        radial-gradient(800px 700px at 50% 110%, rgba(200,150,255,.12), transparent 60%),
+        linear-gradient(145deg, var(--bg1), var(--bg2));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+    }
+    .wrap{width:min(980px, 100%);}
+    .brand{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px; margin:6px 4px 14px;
+    }
+    .brand h1{
+      margin:0;
+      font-size: clamp(18px, 2.4vw, 28px);
+      letter-spacing:.2px;
+      text-shadow:0 2px 10px rgba(0,0,0,.45);
+    }
+    .chip{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 12px;
+      background:rgba(216,255,63,.06);
+      border:1px solid rgba(216,255,63,.22);
+      border-radius:999px;
+      font-weight:900;
+      color:rgba(255,255,255,.92);
+      box-shadow:0 10px 26px rgba(0,0,0,.28);
+      user-select:none;
+    }
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.05));
+      border:1px solid var(--stroke);
+      border-radius:22px;
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .top{
+      padding:16px 16px 12px;
+      background: linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,.05));
+      border-bottom:1px solid var(--stroke);
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .stats{display:flex; gap:10px; flex-wrap:wrap; align-items:center;}
+    .stat{
+      display:flex; align-items:center; gap:8px;
+      padding:10px 12px;
+      border-radius:16px;
+      background:rgba(0,0,0,.22);
+      border:1px solid rgba(255,255,255,.14);
+      font-weight:1000;
+      letter-spacing:.2px;
+      text-shadow:0 1px 4px rgba(0,0,0,.6);
+      min-width: 118px;
+      justify-content:center;
+    }
+    .stat b{font-size: 18px;}
+    .stat.good{outline:2px solid rgba(216,255,63,.22)}
+    .stat.bad{outline:2px solid rgba(255,92,122,.22)}
+    .stat.net{outline:2px solid rgba(216,255,63,.16)}
+    .timer{
+      display:none;
+      padding:10px 12px;
+      border-radius:16px;
+      background:rgba(0,0,0,.22);
+      border:1px solid rgba(255,255,255,.14);
+      font-weight:1100;
+      letter-spacing:.2px;
+      min-width: 140px;
+      justify-content:center;
+      text-shadow:0 1px 4px rgba(0,0,0,.6);
+    }
+    .timer.show{display:flex}
+    .timer .t{font-size:18px; margin-left:8px;}
+    .modeTag{
+      padding:10px 12px;
+      border-radius:16px;
+      background:rgba(216,255,63,.06);
+      border:1px solid rgba(216,255,63,.22);
+      font-weight:1000;
+      letter-spacing:.2px;
+      user-select:none;
+      box-shadow:0 10px 26px rgba(0,0,0,.22);
+    }
+    .main{padding:16px;}
+    .screen{display:none;}
+    .screen.active{display:block;}
+    .hero{
+      padding:22px 18px;
+      text-align:center;
+    }
+    .hero h2{
+      margin:6px 0 10px;
+      font-size: clamp(22px, 3.0vw, 36px);
+      font-weight:1200;
+      letter-spacing:.2px;
+      text-shadow:0 2px 14px rgba(0,0,0,.55);
+    }
+    .hero p{
+      margin:0 auto;
+      max-width: 760px;
+      color:var(--muted);
+      font-weight:800;
+      line-height:1.5;
+    }
+    .grid2{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:12px;
+      max-width: 720px;
+      margin:16px auto 0;
+    }
+    @media (min-width: 760px){
+      .grid2{grid-template-columns: 1fr 1fr;}
+    }
+    .panel{
+      background:rgba(0,0,0,.20);
+      border:1px solid var(--stroke);
+      border-radius:18px;
+      padding:14px;
+      text-align:left;
+    }
+    .panel h3{
+      margin:0 0 8px;
+      font-size:16px;
+      font-weight:1100;
+    }
+    .panel ul{
+      margin:0; padding-left:18px; color:var(--muted);
+      font-weight:800; line-height:1.5;
+    }
+    .row{
+      display:flex; gap:10px; flex-wrap:wrap;
+      align-items:center; justify-content:center;
+      margin-top:14px;
+    }
+    input[type="text"]{
+      width:min(420px, 100%);
+      padding:14px 14px;
+      border-radius:16px;
+      border:1px solid var(--stroke);
+      background:rgba(255,255,255,.08);
+      color:var(--text);
+      outline:none;
+      font-weight:1000;
+      font-size:16px;
+      box-shadow:0 10px 24px rgba(0,0,0,.18);
+    }
+    .btn{
+      position:relative;
+      border:none;
+      padding:18px 24px;
+      font-size:20px;
+      font-weight:1400;
+      letter-spacing:.7px;
+      border-radius:22px;
+      border:2px solid rgba(200,150,255,.55);
+      background: rgba(255,255,255,.12);
+      color:#fff;
+      box-shadow:
+        0 0 0 1px rgba(200,150,255,.35),
+        0 18px 50px rgba(0,0,0,.65);
+      cursor:pointer;
+      user-select:none;
+      text-shadow:0 1px 3px rgba(0,0,0,.6);
+      transition: transform .1s ease, box-shadow .2s ease, filter .2s ease, background .2s ease, border-color .2s ease;
+    }
+    .btn:hover{
+      transform: translateY(-2px) scale(1.03);
+      box-shadow:
+        0 0 26px rgba(200,150,255,.75),
+        0 24px 70px rgba(0,0,0,.75);
+      background:rgba(255,255,255,.16);
+    }
+    .btn:active{transform: translateY(0px) scale(.99);}
+    .btn.primary{
+      background-size: 220% 220%;
+      background-image: linear-gradient(90deg, #d9a6ff, #9b5cff, #d9a6ff);
+      animation: neonShine 2.2s linear infinite;
+      border:2px solid #e5c2ff;
+      color:#07000f;
+      text-shadow:none;
+      box-shadow:
+        0 0 30px rgba(200,150,255,.85),
+        0 20px 60px rgba(0,0,0,.75);
+    }
+    .btn.danger{
+      background:linear-gradient(180deg, rgba(255,77,109,.35), rgba(255,77,109,.14));
+      border-color: rgba(255,77,109,.75);
+      color: rgba(255,255,255,.98);
+    }
+    .btn.ghost{background:rgba(255,255,255,.10);}{background:rgba(255,255,255,.10);}
+    .btn.block{width:min(520px, 100%); padding:14px 18px;}
+    .questionHeader{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:10px; flex-wrap:wrap;
+      padding:14px 14px 10px;
+      background:rgba(0,0,0,.18);
+      border:1px solid var(--stroke);
+      border-radius:18px;
+      margin-bottom:12px;
+    }
+    .qleft{display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      background:rgba(216,255,63,.06);
+      border:1px solid rgba(216,255,63,.22);
+      font-weight:1100;
+      user-select:none;
+    }
+    .badge.deep{border-color:rgba(255,211,106,.55); background:rgba(255,211,106,.10);}
+    .badge.small{font-size:13px; font-weight:1000; color:rgba(255,255,255,.9);}
+    .sentenceBox{
+      padding:18px 14px;
+      border-radius:18px;
+      border:1px solid var(--stroke);
+      background:rgba(0,0,0,.20);
+    }
+    .sentence{
+      font-size: clamp(26px, 4vw, 38px);
+      font-weight:1400;
+      line-height:1.4;
+      letter-spacing:.35px;
+      color:rgba(255,255,255,.98);
+      text-shadow:
+        0 0 14px rgba(200,150,255,.25),
+        0 2px 8px rgba(0,0,0,.65);
+      user-select:none;
+      text-align:center;
+    }
+    .word{
+      display:inline-block;
+      padding:6px 10px;
+      margin:4px 3px;
+      border-radius:14px;
+      border:1px solid transparent;
+      cursor:default;
+      user-select:none;
+      font-weight:1200;
+      color:rgba(255,255,255,.98);
+      background:rgba(255,255,255,.08);
+      text-shadow:0 1px 4px rgba(0,0,0,.55);
+      transition: transform .08s ease, background .18s ease, border-color .18s ease, box-shadow .18s ease;
+    }
+    .word.selectable{
+      cursor:pointer;
+      background:rgba(255,255,255,.16);
+      border-color:rgba(255,255,255,.45);
+    }
+    .word.selectable:hover{transform: translateY(-1px);}
+    .word.hl{
+      border-color: rgba(216,255,63,.85);
+      background: rgba(216,255,63,.12);
+      box-shadow: 0 10px 24px rgba(216,255,63,.14);
+    }
+    .controls{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:center;
+      margin-top:12px;
+    }
+    .msg{
+      margin-top:12px;
+      padding:14px 14px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.25);
+      background:rgba(0,0,0,.38);
+      font-weight:1150;
+      color:rgba(255,255,255,.98);
+      min-height:52px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-shadow:0 1px 4px rgba(0,0,0,.65);
+      text-align:center;
+    }
+    .popupBackdrop{
+      position:fixed; inset:0;
+      background:rgba(0,0,0,.55);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+      z-index:50;
+    }
+    .popupBackdrop.show{display:flex;}
+    .popup{
+      width:min(640px, 100%);
+      background: linear-gradient(180deg, rgba(18,22,29,.98), rgba(8,10,14,.98));
+      color: rgba(255,255,255,.96);
+      border:1px solid rgba(0,0,0,.10);
+      border-radius:22px;
+      box-shadow: 0 24px 70px rgba(0,0,0,.55);
+      overflow:hidden;
+    }
+    .popupTop{
+      padding:14px 14px 10px;
+      background: rgba(0,0,0,.04);
+      border-bottom:1px solid rgba(0,0,0,.10);
+      display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
+    }
+    .popupTop .title{font-weight:1200; letter-spacing:.2px;}
+    .popupBody{padding:14px;}
+    .choices{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:10px;
+    }
+    @media (min-width:720px){
+      .choices{grid-template-columns: 1fr 1fr;}
+    }
+    .choice{
+      padding:12px 12px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.20);
+      background:rgba(0,0,0,.22);
+      cursor:pointer;
+      font-weight:1100;
+      text-align:center;
+      user-select:none;
+      text-shadow:0 1px 4px rgba(0,0,0,.55);
+      transition: transform .08s ease, background .2s ease, border-color .2s ease;
+    }
+    .choice:hover{transform: translateY(-1px); background:rgba(255,255,255,.10); border-color:rgba(255,255,255,.28);}
+    .choice:active{transform: translateY(0px) scale(.99);}
+    .review{
+      margin-top:14px;
+      padding:12px;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.18);
+      background:rgba(0,0,0,.20);
+      overflow:auto;
+    }
+    table{width:100%; border-collapse:collapse; min-width:760px;}
+    th,td{padding:10px 10px; border-bottom:1px solid rgba(255,255,255,.12); vertical-align:top;}
+    th{font-weight:1200; text-align:left; color:rgba(255,255,255,.92); background:rgba(255,255,255,.05); position:sticky; top:0;}
+    td{color:rgba(255,255,255,.86); font-weight:800;}
+    .pill{
+      display:inline-flex; align-items:center; gap:6px;
+      padding:6px 10px;
+      border-radius:999px;
+      font-weight:1100;
+      border:1px solid rgba(255,255,255,.18);
+      background:rgba(0,0,0,.20);
+      white-space:nowrap;
+    }
+    .pill.ok{border-color:rgba(61,255,179,.35); background:rgba(61,255,179,.10);}
+    .pill.no{border-color:rgba(255,92,122,.35); background:rgba(255,92,122,.10);}
+    .pill.mid{border-color:rgba(255,211,106,.35); background:rgba(255,211,106,.10);}
+    .footerBtns{display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:14px;}
+    .smallNote{color:var(--muted); font-weight:800; text-align:center; margin-top:8px;}
+  
+    /* --- SFX + Confetti --- */
+    #confetti{
+      position:fixed; inset:0; width:100vw; height:100vh;
+      pointer-events:none; z-index:999;
+    }
+    #emojiBurst{
+      position:fixed; inset:0; pointer-events:none; z-index:1000;
+      display:block;
+    }
+    .emojiPop{
+      position:absolute;
+      font-size: 56px;
+      transform: translate(-50%, -50%) scale(.6);
+      opacity:0;
+      filter: drop-shadow(0 8px 18px rgba(0,0,0,.45));
+      animation: pop 700ms ease-out forwards;
+    }
+    @keyframes pop{
+      0%{opacity:0; transform:translate(-50%,-50%) scale(.6);}
+      
+
+    /* =========================
+       Infinite Purple • Animation + Sentence Wave
+       ========================= */
+
+    @keyframes neonShine{
+      0%{ background-position: 0% 50%; }
+      100%{ background-position: 100% 50%; }
+    }
+
+    @keyframes sentenceWaveDrift{
+      0%   { transform: translate3d(0,0,0) scale(1.02); opacity:.18; }
+      50%  { transform: translate3d(-10px,6px,0) scale(1.05); opacity:.26; }
+      100% { transform: translate3d(0,0,0) scale(1.02); opacity:.18; }
+    }
+
+    @keyframes sentenceScan{
+      0%   { transform: translateY(-140%); opacity:0; }
+      12%  { opacity:.18; }
+      50%  { opacity:.12; }
+      88%  { opacity:.18; }
+      100% { transform: translateY(140%); opacity:0; }
+    }
+
+    .sentenceBox{
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(200,150,255,.28);
+      background: rgba(0,0,0,.22);
+      box-shadow:
+        0 0 0 1px rgba(200,150,255,.12),
+        0 18px 55px rgba(0,0,0,.55);
+    }
+
+    .sentenceBox::before{
+      content:"";
+      position:absolute; inset:-40%;
+      background:
+        radial-gradient(circle at 30% 40%, rgba(200,150,255,.16), transparent 55%),
+        radial-gradient(circle at 75% 55%, rgba(140,70,220,.14), transparent 58%),
+        radial-gradient(circle at 55% 30%, rgba(255,255,255,.06), transparent 60%);
+      pointer-events:none;
+      mix-blend-mode: screen;
+      animation: sentenceWaveDrift 12s ease-in-out infinite;
+    }
+
+    .sentenceBox::after{
+      content:"";
+      position:absolute; inset:0;
+      background: linear-gradient(
+        180deg,
+        transparent 0%,
+        rgba(200,150,255,.18) 46%,
+        rgba(255,255,255,.05) 50%,
+        rgba(200,150,255,.14) 54%,
+        transparent 100%
+      );
+      pointer-events:none;
+      opacity:0;
+      animation: sentenceScan 7.5s ease-in-out infinite;
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .sentenceBox::before,
+      .sentenceBox::after,
+      .btn.primary{
+        animation:none !important;
+      }
+    }
+
+25%{opacity:1; transform:translate(-50%,-50%) scale(1.08);}
+      100%{opacity:0; transform:translate(-50%,-90%) scale(.9);}
+    }
+
+  
+    /* Popup readability */
+    .popup .title{color:rgba(255,255,255,.96);}
+    .popup .msg{
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(216,255,63,.18);
+      color: rgba(255,255,255,.96);
+      text-shadow:none;
+    }
+    .choice{
+      background: rgba(0,0,0,.35);
+      border:2px solid rgba(216,255,63,.20);
+      color: rgba(255,255,255,.96);
+      text-shadow:none;
+      font-weight:1200;
+      padding:14px 12px;
+      border-radius:18px;
+    }
+    .choice:hover{background:rgba(255,255,255,.06); border-color:rgba(216,255,63,.38);}
+
+  
+    .howtoList{
+      margin:0;
+      padding-left:18px;
+      line-height:1.6;
+      font-size: clamp(14px, 2vw, 18px);
+    }
+    .howtoList li{
+      margin-bottom:6px;
+    }
+    
+
+    /* Bigger decision buttons for TV */
+    #btnCorrect, #btnIncorrect{
+      font-size: 22px;
+      padding: 18px 28px;
+      min-width: 220px;
+    }
+
+</style>
+</head>
+<body>
+  <canvas id="confetti"></canvas>
+  <div id="emojiBurst" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="brand">
+      <h1>Present Simple • Sentence Detective <span style="opacity:.85">(Premium 30)</span></h1>
+      <div class="chip">🍋 Lemon-Black Series • Battle Grammar</div>
+    </div>
+
+    <div class="card">
+      <div class="top">
+        <div class="stats">
+          <div class="stat good">✅ + <b id="posScore">0</b></div>
+          <div class="stat bad">⚠️ − <b id="negScore">0</b></div>
+          <div class="stat net">⭐ Net <b id="netScore">0</b></div>
+          <div class="timer" id="timerBox">⏳ Time <span class="t" id="timeLeft">20</span>s</div>
+        </div>
+        <div class="modeTag" id="modeTag">Mode: —</div>
+      </div>
+
+      <div class="main">
+        <!-- START -->
+        
+        <section class="screen active" id="startScreen">
+          <div class="hero" style="padding:28px 16px;">
+            <h2 style="margin-top:2px; font-size: clamp(28px, 4.2vw, 52px); letter-spacing:.4px;">
+              ⚔️ Present Simple Battle
+            </h2>
+            <p style="max-width:720px; margin-top:8px;">
+              <b>Sentence Detective</b> • Detect • Decide • Fix
+            </p>
+
+            <div class="row" style="margin-top:18px;">
+              <input id="playerName" type="text" maxlength="28" placeholder="Enter your name" />
+            </div>
+
+            <div class="row" style="margin-top:12px;">
+              <button class="btn ghost" id="sfxBtn" style="width:min(520px,100%);">🔊 SFX: ON</button>
+            </div>
+
+            <div class="row" style="margin-top:14px;">
+              <button class="btn block ghost" id="practiceBtn">🧠 PRACTICE</button>
+              <button class="btn block primary" id="challengeBtn">⚡ CHALLENGE</button>
+            </div>
+
+            <div class="smallNote" style="margin-top:10px;">
+              Premium 30 • TV-friendly • EN-only
+            </div>
+          </div>
+        </section>
+
+        <!-- GAME -->
+
+        <section class="screen" id="gameScreen">
+          <div class="questionHeader">
+            <div class="qleft">
+              <div class="badge"><b id="qNum">1</b>/<span id="qTotal">30</span></div>
+              <div class="badge small" id="tenseTag">Present Simple</div>
+              <div class="badge deep" id="deepTag" style="display:none;">⭐ Deep Thinking Challenge</div>
+            </div>
+            <div class="badge small" id="playerTag">Player: —</div>
+          </div>
+
+          <div class="sentenceBox">
+            <div class="sentence" id="sentence"></div>
+          </div>
+
+          <div class="controls">
+            <button class="btn primary" id="btnCorrect">✅ Correct</button>
+            <button class="btn danger" id="btnIncorrect">❌ Incorrect</button>
+            <button class="btn ghost" id="btnContinue" style="display:none;">Continue ➜</button>
+          </div>
+
+          <div class="msg" id="msg">Choose Correct or Incorrect.</div>
+        </section>
+
+        <!-- END -->
+        <section class="screen" id="endScreen">
+          <div class="hero" style="padding:18px 14px;">
+            <h2 id="finalTitle">Mission Report</h2>
+            <p id="finalSummary">—</p>
+
+            <div class="row" style="margin-top:12px;">
+              <div class="stat good">✅ Decision Correct <b id="decOK">0</b></div>
+              <div class="stat bad">❌ Decision Wrong <b id="decNO">0</b></div>
+              <div class="stat good">🛠 Fix Correct <b id="fixOK">0</b></div>
+              <div class="stat bad">🧩 Fix Wrong <b id="fixNO">0</b></div>
+              <div class="stat net">⏱ Timeouts <b id="timeouts">0</b></div>
+            </div>
+
+            <div class="review" style="margin-top:14px;">
+              <table>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Sentence</th>
+                    <th>Your Decision</th>
+                    <th>Fix</th>
+                    <th>Final Sentence</th>
+                    <th>Type</th>
+                  </tr>
+                </thead>
+                <tbody id="reviewBody"></tbody>
+              </table>
+            </div>
+
+            <div class="footerBtns">
+              <button class="btn ghost" id="restartBtn">↺ Play Again</button>
+              <button class="btn primary" id="backHomeBtn">🏠 Back to Home</button>
+            </div>
+            <div class="smallNote">Teacher tip: Use the review table to spot common mistakes quickly.</div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+  <!-- HOW TO PLAY (Mode Popup) -->
+  <div class="popupBackdrop" id="howtoBackdrop" aria-hidden="true">
+    <div class="popup" role="dialog" aria-modal="true" style="border:2px solid rgba(216,255,63,.22);">
+      <div class="popupTop">
+        <div class="title" id="howtoTitle">How to Play</div>
+        <button class="btn ghost" id="howtoCloseBtn">Close</button>
+      </div>
+      <div class="popupBody">
+        <div class="msg" id="howtoText" style="margin:0 0 12px; min-height:auto; text-align:left; line-height:1.55;">
+          —
+        </div>
+        <div class="footerBtns" style="margin-top:0;">
+          <button class="btn primary" id="howtoStartBtn">START</button>
+        </div>
+        <div class="smallNote" style="margin-top:10px;">If you are ready, press <b>START</b>.</div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- POPUP -->
+  <div class="popupBackdrop" id="popupBackdrop" aria-hidden="true">
+    <div class="popup" role="dialog" aria-modal="true">
+      <div class="popupTop">
+        <div class="title" id="popupTitle">Choose the correct replacement</div>
+        <button class="btn ghost" id="popupCloseBtn">Close</button>
+      </div>
+      <div class="popupBody">
+        <div class="msg" id="popupMsg" style="margin:0 0 10px; min-height:auto;">—</div>
+        <div class="choices" id="choices"></div>
+      </div>
+    </div>
+  </div>
+
+<script>
+(() => {
+  
+
+  // ---------- SFX + Confetti ----------
+  let sfxOn = true;
+  let ac = null;
+  function ensureAC(){
+    if(!ac) ac = new (window.AudioContext || window.webkitAudioContext)();
+    if(ac.state === "suspended") ac.resume();
+  }
+  function beep(kind="click"){
+    if(!sfxOn) return;
+    try{
+      ensureAC();
+      const o = ac.createOscillator();
+      const g = ac.createGain();
+      const now = ac.currentTime;
+      o.type = (kind==="bad") ? "sawtooth" : "sine";
+      let f=520, dur=0.06, gain=0.06;
+      if(kind==="good"){ f=820; dur=0.12; gain=0.08; }
+      if(kind==="bad"){ f=180; dur=0.14; gain=0.06; }
+      if(kind==="tick"){ f=420; dur=0.03; gain=0.04; }
+      g.gain.setValueAtTime(0, now);
+      g.gain.linearRampToValueAtTime(gain, now+0.01);
+      g.gain.exponentialRampToValueAtTime(0.0001, now+dur);
+      o.frequency.setValueAtTime(f, now);
+      o.connect(g); g.connect(ac.destination);
+      o.start(now); o.stop(now+dur+0.02);
+    }catch(e){}
+  }
+
+  const conf = document.getElementById("confetti");
+  const cctx = conf.getContext("2d");
+  let CW=0, CH=0;
+  let bits = [];
+  function resizeConf(){
+    CW = conf.width = window.innerWidth * devicePixelRatio;
+    CH = conf.height = window.innerHeight * devicePixelRatio;
+    conf.style.width = window.innerWidth + "px";
+    conf.style.height = window.innerHeight + "px";
+  }
+  window.addEventListener("resize", resizeConf, {passive:true});
+  resizeConf();
+
+  function burstConfetti(x,y,count=180){
+    const px = x * devicePixelRatio;
+    const py = y * devicePixelRatio;
+    const colors = ["#d8ff3f","#ffffff","#ffd36a","#ff3b3b","#b8ff2a"];
+    for(let i=0;i<count;i++){
+      const ang = Math.random()*Math.PI*2;
+      const spd = (4+Math.random()*7) * devicePixelRatio;
+      bits.push({
+        x:px, y:py,
+        vx: Math.cos(ang)*spd,
+        vy: Math.sin(ang)*spd - 10*devicePixelRatio,
+        w: (6+Math.random()*10)*devicePixelRatio,
+        h: (3+Math.random()*6)*devicePixelRatio,
+        rot: Math.random()*Math.PI,
+        vr: (Math.random()-0.5)*0.35,
+        life: 120 + Math.random()*60,
+        col: colors[Math.floor(Math.random()*colors.length)]
+      });
+    }
+  }
+
+  function confTick(){
+    cctx.clearRect(0,0,CW,CH);
+    bits = bits.filter(b => b.life > 0);
+    for(const b of bits){
+      b.life--;
+      b.vy += 0.25*devicePixelRatio;
+      b.x += b.vx;
+      b.y += b.vy;
+      b.rot += b.vr;
+      cctx.save();
+      cctx.translate(b.x, b.y);
+      cctx.rotate(b.rot);
+      cctx.globalAlpha = Math.max(0, Math.min(1, b.life/140));
+      cctx.fillStyle = b.col;
+      cctx.fillRect(-b.w/2, -b.h/2, b.w, b.h);
+      cctx.restore();
+    }
+    requestAnimationFrame(confTick);
+  }
+  confTick();
+
+  const emojiLayer = document.getElementById("emojiBurst");
+  function popEmoji(emoji, x, y){
+    const el = document.createElement("div");
+    el.className = "emojiPop";
+    el.textContent = emoji;
+    el.style.left = x + "px";
+    el.style.top  = y + "px";
+    emojiLayer.appendChild(el);
+    setTimeout(()=>el.remove(), 800);
+  }
+
+  function celebrate(kind="good"){
+    const x = window.innerWidth*0.5;
+    const y = window.innerHeight*0.22;
+    if(kind==="good"){
+      beep("good");
+      burstConfetti(x, y, 220);
+      popEmoji("🎉", x, y);
+      setTimeout(()=>popEmoji("😄", x+40, y+10), 80);
+    }else{
+      beep("bad");
+      popEmoji("😅", x, y);
+    }
+  }
+
+const QUESTIONS = [
+    {id:1, type:"standard", words:["She","plays","the","piano","every","evening."], isCorrect:true},
+    {id:2, type:"standard", words:["My","brother","like","milk."], isCorrect:false, wrongIndex:2, correct:"likes", options:["likes","like","liking","liked"]},
+    {id:3, type:"standard", words:["He","go","to","school","by","bus","every","day."], isCorrect:false, wrongIndex:1, correct:"goes", options:["goes","go","going","went"]},
+    {id:4, type:"standard", words:["The","teacher","explains","the","lesson","clearly."], isCorrect:true},
+    {id:5, type:"standard", words:["A","cat","sleep","on","the","sofa."], isCorrect:false, wrongIndex:2, correct:"sleeps", options:["sleeps","sleep","sleeping","slept"]},
+    {id:6, type:"standard", words:["Our","mother","cooks","dinner","every","night."], isCorrect:true},
+    {id:7, type:"standard", words:["The","boy","watch","TV","after","school."], isCorrect:false, wrongIndex:2, correct:"watches", options:["watches","watch","watching","watched"]},
+    {id:8, type:"standard", words:["My","father","work","in","an","office."], isCorrect:false, wrongIndex:2, correct:"works", options:["works","work","working","worked"]},
+    {id:9, type:"standard", words:["He","does","not","like","coffee."], isCorrect:true},
+    {id:10, type:"standard", words:["She","does","not","plays","tennis","on","weekends."], isCorrect:false, wrongIndex:3, correct:"play", options:["play","plays","playing","played"]},
+    {id:11, type:"standard", words:["My","father","does","not","work","on","Sunday."], isCorrect:true},
+    {id:12, type:"standard", words:["The","dog","does","not","eats","meat."], isCorrect:false, wrongIndex:4, correct:"eat", options:["eat","eats","eating","ate"]},
+    {id:13, type:"standard", words:["The","student","studies","hard","every","day."], isCorrect:true},
+    {id:14, type:"standard", words:["Does","she","play","football","after","school?"], isCorrect:true},
+    {id:15, type:"standard", words:["Does","the","boy","watches","TV","at","night?"], isCorrect:false, wrongIndex:3, correct:"watch", options:["watch","watches","watching","watched"]},
+    {id:16, type:"standard", words:["Does","your","father","drive","to","work","every","day?"], isCorrect:true},
+    {id:17, type:"standard", words:["The","dog","runs","fast","every","morning."], isCorrect:true},
+    {id:18, type:"standard", words:["My","sister","washes","the","dishes","after","dinner."], isCorrect:true},
+    {id:19, type:"standard", words:["We","go","to","the","library","on","Saturdays."], isCorrect:true},
+    {id:20, type:"standard", words:["She","teaches","English","at","this","school."], isCorrect:true},
+
+    {id:21, type:"deep", words:["She","goes","to","school","by","bus","now."], isCorrect:false,
+      highlights:[1,6], fixIndex:6, correct:"every day", options:["every day","last Monday","at the moment","for two years"],
+      noteWrongFix:"The verb form <b>goes</b> is correct for Present Simple with <b>she</b>."},
+    {id:22, type:"deep", words:["My","father","work","in","an","office","every","day."], isCorrect:false,
+      highlights:[2,7], fixIndex:2, correct:"works", options:["works","is working","worked","working"],
+      noteWrongFix:"The time phrase <b>every day</b> fits Present Simple. The verb form needs fixing."},
+    {id:23, type:"deep", words:["Does","she","goes","to","school","by","bus?"], isCorrect:false,
+      highlights:[0,2], fixIndex:2, correct:"go", options:["go","goes","going","went"],
+      noteWrongFix:"<b>Does</b> is correct with <b>she</b>. After <b>does</b>, use the base verb."},
+    {id:24, type:"deep", words:["He","plays","football","at the moment."], isCorrect:false,
+      highlights:[1,3], fixIndex:3, correct:"every weekend", options:["every weekend","now","yesterday","for two hours"],
+      noteWrongFix:"The verb form <b>plays</b> can be correct for Present Simple. The time phrase is the issue."},
+    {id:25, type:"deep", words:["My","sister","like","ice","cream","every","day."], isCorrect:false,
+      highlights:[2,5], fixIndex:2, correct:"likes", options:["likes","is liking","liked","liking"],
+      noteWrongFix:"The time phrase <b>every day</b> fits Present Simple. The verb form needs fixing."},
+    {id:26, type:"deep", words:["Does","your","father","works","in","a","hospital?"], isCorrect:false,
+      highlights:[0,3], fixIndex:3, correct:"work", options:["work","works","working","worked"],
+      noteWrongFix:"<b>Does</b> is correct. After <b>does</b>, use the base verb."},
+    {id:27, type:"deep", words:["She","goes","to","bed","early","at the moment."], isCorrect:false,
+      highlights:[1,5], fixIndex:5, correct:"every night", options:["every night","now","yesterday","for a week"],
+      noteWrongFix:"The verb form <b>goes</b> is correct for Present Simple with <b>she</b>."},
+    {id:28, type:"deep", words:["The","boy","watches","TV","now."], isCorrect:false,
+      highlights:[2,4], fixIndex:4, correct:"every evening", options:["every evening","at the moment","yesterday","tomorrow"],
+      noteWrongFix:"The verb form <b>watches</b> is correct for Present Simple with <b>the boy</b>."},
+    {id:29, type:"deep", words:["Does","your","sister","likes","milk?"], isCorrect:false,
+      highlights:[0,3], fixIndex:3, correct:"like", options:["like","likes","liking","liked"],
+      noteWrongFix:"<b>Does</b> is correct. After <b>does</b>, use the base verb."},
+    {id:30, type:"deep", words:["My","teacher","teaches","English","now."], isCorrect:false,
+      highlights:[2,4], fixIndex:4, correct:"every day", options:["every day","at the moment","yesterday","for two hours"],
+      noteWrongFix:"The verb form <b>teaches</b> is correct for Present Simple with <b>my teacher</b>."},
+  ];
+
+  function shuffle(arr){
+    const a = arr.slice();
+    for(let i=a.length-1;i>0;i--){
+      const j = Math.floor(Math.random()*(i+1));
+      [a[i],a[j]] = [a[j],a[i]];
+    }
+    return a;
+  }
+
+  let player = "Player";
+  let mode = "practice";
+  let deck = [];
+  let idx = 0;
+
+  let pos = 0, neg = 0;
+  let decisionOK = 0, decisionNO = 0, fixOK = 0, fixNO = 0, timeouts = 0;
+  const logs = [];
+
+  let current = null;
+  let phase = "decide";
+  let timer = null;
+  let timeLeft = 20;
+  let allowContinue = false;
+
+  const startScreen = document.getElementById("startScreen");
+  const gameScreen  = document.getElementById("gameScreen");
+  const endScreen   = document.getElementById("endScreen");
+  const playerName  = document.getElementById("playerName");
+  const practiceBtn = document.getElementById("practiceBtn");
+  const challengeBtn= document.getElementById("challengeBtn");
+  const sfxBtn = document.getElementById("sfxBtn");
+
+  const posScoreEl = document.getElementById("posScore");
+  const negScoreEl = document.getElementById("negScore");
+  const netScoreEl = document.getElementById("netScore");
+  const modeTagEl  = document.getElementById("modeTag");
+
+  const timerBox   = document.getElementById("timerBox");
+  const timeLeftEl = document.getElementById("timeLeft");
+
+  const qNumEl     = document.getElementById("qNum");
+  const qTotalEl   = document.getElementById("qTotal");
+  const playerTag  = document.getElementById("playerTag");
+  const deepTag    = document.getElementById("deepTag");
+  const sentenceEl = document.getElementById("sentence");
+
+  const msgEl      = document.getElementById("msg");
+  const btnCorrect = document.getElementById("btnCorrect");
+  const btnIncorrect= document.getElementById("btnIncorrect");
+  const btnContinue= document.getElementById("btnContinue");
+
+  const popupBackdrop = document.getElementById("popupBackdrop");
+  const popupTitle = document.getElementById("popupTitle");
+  const popupMsg   = document.getElementById("popupMsg");
+  const choicesEl  = document.getElementById("choices");
+  const popupCloseBtn = document.getElementById("popupCloseBtn");
+
+  // HOW TO PLAY popup (shown after selecting a mode)
+  const howtoBackdrop = document.getElementById("howtoBackdrop");
+  const howtoTitle = document.getElementById("howtoTitle");
+  const howtoText = document.getElementById("howtoText");
+  const howtoCloseBtn = document.getElementById("howtoCloseBtn");
+  const howtoStartBtn = document.getElementById("howtoStartBtn");
+  let pendingMode = null;
+
+
+  const finalTitle = document.getElementById("finalTitle");
+  const finalSummary = document.getElementById("finalSummary");
+  const decOKEl = document.getElementById("decOK");
+  const decNOEl = document.getElementById("decNO");
+  const fixOKEl = document.getElementById("fixOK");
+  const fixNOEl = document.getElementById("fixNO");
+  const timeoutsEl = document.getElementById("timeouts");
+  const reviewBody = document.getElementById("reviewBody");
+  const restartBtn = document.getElementById("restartBtn");
+  const backHomeBtn= document.getElementById("backHomeBtn");
+
+
+  if(sfxBtn){
+    sfxBtn.addEventListener("click", () => {
+      sfxOn = !sfxOn;
+      sfxBtn.textContent = sfxOn ? "🔊 SFX: ON" : "🔇 SFX: OFF";
+      beep("click");
+    });
+  }
+
+
+  function show(screen){
+    [startScreen, gameScreen, endScreen].forEach(s => s.classList.remove("active"));
+    screen.classList.add("active");
+  }
+  function updateScores(){
+    posScoreEl.textContent = String(pos);
+    negScoreEl.textContent = String(neg);
+    netScoreEl.textContent = String(pos - neg);
+  }
+  function addPositive(n=1){ pos += n; updateScores(); }
+  function addNegative(n=1){ neg += n; updateScores(); }
+
+  function setMsg(html){ msgEl.innerHTML = html; }
+  function setContinue(on){
+    btnContinue.style.display = on ? "inline-flex" : "none";
+    allowContinue = on;
+  }
+
+  function stopTimer(){
+    if(timer){ clearInterval(timer); timer = null; }
+  }
+  function startTimer(){
+    stopTimer();
+    if(mode !== "challenge") return;
+    timeLeft = 20;
+    timeLeftEl.textContent = String(timeLeft);
+    timer = setInterval(() => {
+      timeLeft--;
+      if(timeLeft <= 5){
+        timerBox.style.borderColor = "rgba(255,92,122,.55)";
+      }else{
+        timerBox.style.borderColor = "rgba(255,255,255,.14)";
+      }
+      timeLeftEl.textContent = String(Math.max(0,timeLeft));
+      if(timeLeft <= 0){
+        stopTimer();
+        onTimeout();
+      }
+    }, 1000);
+  }
+
+  function openPopup(title, msg, options, onPick){
+    popupTitle.textContent = title;
+    popupMsg.innerHTML = msg;
+    choicesEl.innerHTML = "";
+    options.forEach(opt => {
+      const div = document.createElement("div");
+      div.className = "choice";
+      div.textContent = opt;
+      div.onclick = () => onPick(opt);
+      choicesEl.appendChild(div);
+    });
+    popupBackdrop.classList.add("show");
+  }
+  function closePopup(){ popupBackdrop.classList.remove("show"); }
+
+  function openHowTo(selectedMode){
+    pendingMode = selectedMode;
+    const isChallenge = selectedMode === "challenge";
+    howtoTitle.textContent = isChallenge ? "How to Play: CHALLENGE" : "How to Play: PRACTICE";
+
+    
+    const items = [];
+    items.push("<li><b>Read</b> the sentence carefully.</li>");
+    items.push("<li>Click <b>Correct</b> or <b>Incorrect</b>.</li>");
+    items.push("<li>If the sentence is incorrect, <b>fix</b> the highlighted part.</li>");
+    items.push("<li><b>⭐ Deep Thinking</b>: choose the correct highlighted word first.</li>");
+    if(isChallenge){
+      items.push("<li>You have <b>20 seconds</b> per question.</li>");
+      items.push("<li>Timeout = <b>−1 point</b>.</li>");
+    }else{
+      items.push("<li>No timer. Take your time.</li>");
+    }
+    items.push("<li>Scoring: correct = <b>+1</b>, wrong = <b>−1</b>.</li>");
+    howtoText.innerHTML = "<ul class='howtoList'>" + items.join("") + "</ul>";
+("<br>");
+    howtoBackdrop.classList.add("show");
+  }
+  function closeHowTo(){
+    howtoBackdrop.classList.remove("show");
+  }
+
+
+  function makeSentenceHTML(words, hlSet = new Set(), selectable = false){
+    sentenceEl.innerHTML = "";
+    words.forEach((w, i) => {
+      const span = document.createElement("span");
+      span.className = "word" + (selectable ? " selectable" : "") + (hlSet.has(i) ? " hl" : "");
+      span.textContent = w;
+      span.dataset.idx = String(i);
+      sentenceEl.appendChild(span);
+    });
+  }
+  function currentText(words){
+    return words.join(" ").replace(/\s+([?.!,])/g, "$1");
+  }
+
+  function begin(selectedMode){
+    ensureAC();
+    mode = selectedMode;
+    player = (playerName.value || "Player").trim().slice(0, 28) || "Player";
+    modeTagEl.textContent = mode === "challenge" ? "Mode: Challenge (20s)" : "Mode: Practice";
+    timerBox.classList.toggle("show", mode === "challenge");
+    timerBox.style.borderColor = "rgba(255,255,255,.14)";
+    playerTag.textContent = "Player: " + player;
+
+    pos = 0; neg = 0;
+    decisionOK = 0; decisionNO = 0; fixOK = 0; fixNO = 0; timeouts = 0;
+    logs.length = 0;
+
+    const standard = shuffle(QUESTIONS.filter(q => q.type === "standard"));
+    const deep = shuffle(QUESTIONS.filter(q => q.type === "deep"));
+    deck = [];
+    let si=0, di=0;
+    while(si < standard.length || di < deep.length){
+      for(let k=0;k<3 && si < standard.length;k++) deck.push(standard[si++]);
+      if(di < deep.length) deck.push(deep[di++]);
+    }
+    deck = deck.slice(0, 30);
+
+    idx = 0;
+    qTotalEl.textContent = String(deck.length);
+    updateScores();
+    show(gameScreen);
+    loadQuestion();
+  }
+
+  function loadQuestion(){
+    stopTimer();
+    setContinue(false);
+    phase = "decide";
+    current = JSON.parse(JSON.stringify(deck[idx]));
+    current.user = { decision:null, fixed:false, fixWord:null, fixIndex:null, fixPointPicked:null, fixPointCorrect:null, fixCorrect:null, timeout:false };
+    current.originalWords = current.words.slice();
+
+    qNumEl.textContent = String(idx + 1);
+    deepTag.style.display = (current.type === "deep") ? "inline-flex" : "none";
+
+    makeSentenceHTML(current.words, new Set(), false);
+    setMsg(current.type === "deep"
+      ? "Choose <b>Correct</b> or <b>Incorrect</b>. ⭐ Deep Thinking questions require an extra decision."
+      : "Choose <b>Correct</b> or <b>Incorrect</b>."
+    );
+
+    btnCorrect.disabled = false;
+    btnIncorrect.disabled = false;
+
+    startTimer();
+  }
+
+  function finishQuestion(){
+    stopTimer();
+    logs.push({
+      sentence: currentText(current.originalWords),
+      decision: current.user.decision,
+      fix: current.user.fixed ? (current.user.fixCorrect ? "Correct Fix" : "Wrong Fix") : (current.user.decision === "incorrect" && !current.isCorrect ? "No Fix" : "—"),
+      finalSentence: currentText(current.words),
+      type: current.type === "deep" ? "Deep ⭐" : "Standard"
+    });
+
+    idx++;
+    if(idx >= deck.length){
+      endGame();
+    }else{
+      loadQuestion();
+    }
+  }
+
+  function onTimeout(){
+    timeouts++;
+    current.user.timeout = true;
+    current.user.decision = "timeout";
+    decisionNO++;
+    addNegative(1);
+
+    btnCorrect.disabled = true;
+    btnIncorrect.disabled = true;
+    setMsg("⏱️ Time's up! That counts as <b>−1</b>. Click Continue.");
+    celebrate("bad");
+    setContinue(true);
+  }
+
+  btnCorrect.addEventListener("click", () => handleDecision("correct"));
+  btnIncorrect.addEventListener("click", () => handleDecision("incorrect"));
+  btnContinue.addEventListener("click", () => { if(allowContinue) finishQuestion(); });
+
+  function handleDecision(dec){
+    if(phase !== "decide") return;
+    current.user.decision = dec;
+
+    const decisionIsCorrect = (dec === "correct" && current.isCorrect) || (dec === "incorrect" && !current.isCorrect);
+    if(decisionIsCorrect){ decisionOK++; addPositive(1); }
+    else{ decisionNO++; addNegative(1); }
+
+    if(current.isCorrect){
+      btnCorrect.disabled = true; btnIncorrect.disabled = true;
+      const emoji = decisionIsCorrect ? "🙂" : "😅";
+      setMsg(`${emoji} This sentence is <b>correct</b>. Click Continue.`);
+      if(decisionIsCorrect) celebrate("good"); else celebrate("bad");
+      setContinue(true);
+      return;
+    }
+
+    if(dec === "correct"){
+      btnCorrect.disabled = true; btnIncorrect.disabled = true;
+      setMsg(`🙃 This sentence is <b>incorrect</b>. Click Continue.`);
+      celebrate("bad");
+      setContinue(true);
+      return;
+    }
+
+    // Incorrect decision is correct -> fix phase
+    phase = "pickfix";
+    stopTimer(); // pause timer during fix selection (premium UX)
+
+    if(current.type === "standard"){
+      const hl = new Set([current.wrongIndex]);
+      makeSentenceHTML(current.words, hl, true);
+      setMsg("🛠 Click the <b>highlighted word</b> to fix the sentence.");
+    }else{
+      const hl = new Set(current.highlights);
+      makeSentenceHTML(current.words, hl, true);
+      setMsg("⭐ Deep Thinking: Choose <b>one highlighted word</b> to fix.");
+    }
+
+    btnCorrect.disabled = true;
+    btnIncorrect.disabled = true;
+    setContinue(false);
+  }
+
+  sentenceEl.addEventListener("click", (e) => {
+    const t = e.target;
+    if(!(t instanceof HTMLElement)) return;
+    if(!t.classList.contains("word") || !t.classList.contains("selectable")) return;
+    if(phase !== "pickfix") return;
+    const wi = Number(t.dataset.idx);
+    if(Number.isNaN(wi)) return;
+
+    if(current.type === "standard"){
+      if(wi !== current.wrongIndex){
+        fixNO++; addNegative(1);
+        setMsg("❌ Not that word. Fix the highlighted word. (<b>−1</b>) Try again.");
+        celebrate("bad");
+        return;
+      }
+      current.user.fixIndex = wi;
+      openFixPopup(current, wi);
+      return;
+    }
+
+    if(!current.highlights.includes(wi)){
+      fixNO++; addNegative(1);
+      setMsg("❌ Please choose a <b>highlighted</b> word. (<b>−1</b>)");
+      return;
+    }
+
+    const fixPointCorrect = (wi === current.fixIndex);
+    current.user.fixPointPicked = wi;
+    current.user.fixPointCorrect = fixPointCorrect;
+
+    if(!fixPointCorrect){
+      fixNO++; addNegative(1);
+      setMsg(`⚠️ Not the best fix point. (<b>−1</b>) ${current.noteWrongFix}<br/>Try the other highlighted word.`);
+      celebrate("bad");
+      return;
+    }
+
+    current.user.fixIndex = wi;
+    openFixPopup(current, wi);
+  });
+
+
+  function pickTwoChoices(options, correct){
+    const wrongs = options.filter(o => o !== correct);
+    const wrong = wrongs[Math.floor(Math.random()*wrongs.length)];
+    const two = [correct, wrong];
+    for(let i=two.length-1;i>0;i--){
+      const j = Math.floor(Math.random()*(i+1));
+      [two[i], two[j]] = [two[j], two[i]];
+    }
+    return two;
+  }
+
+  function openFixPopup(q, wi){
+    phase = "popup";
+    const originalWord = q.words[wi];
+    const opts2 = pickTwoChoices(q.options.slice(), q.correct);
+    openPopup("Choose the correct replacement", `Replace <b>${escapeHTML(originalWord)}</b> with:`, opts2, (picked) => {
+      const correct = (picked === q.correct);
+      if(correct){
+        {
+          if(q.correct.includes(" ")){
+            const tokens = q.correct.split(" ");
+            const before = q.words.slice(0, wi);
+            const after  = q.words.slice(wi+1);
+            q.words = before.concat(tokens).concat(after);
+          }else{
+            q.words[wi] = q.correct;
+          }
+        }
+
+        q.user.fixed = true;
+        q.user.fixWord = picked;
+        q.user.fixCorrect = true;
+        fixOK++; addPositive(1);
+
+        closePopup();
+        makeSentenceHTML(q.words, new Set(), false);
+        setMsg("✅ Correct fix! +1 🎉 Click Continue.");
+        celebrate("good");
+        setContinue(true);
+        phase = "done";
+      }else{
+        q.user.fixed = true;
+        q.user.fixWord = picked;
+        q.user.fixCorrect = false;
+        fixNO++; addNegative(1);
+
+        closePopup();
+        phase = "pickfix";
+        const hl = (q.type === "standard") ? new Set([q.wrongIndex]) : new Set(q.highlights);
+        makeSentenceHTML(q.words, hl, true);
+        setMsg("❌ Not quite. (<b>−1</b>) Try again.");
+        celebrate("bad");
+        setContinue(false);
+      }
+    });
+  }
+
+  popupCloseBtn.addEventListener("click", () => {
+    closePopup();
+    if(phase === "popup"){
+      phase = "pickfix";
+      const hl = (current.type === "standard") ? new Set([current.wrongIndex]) : new Set(current.highlights);
+      makeSentenceHTML(current.words, hl, true);
+      setMsg("Pick a replacement to fix the sentence.");
+    }
+  });
+  popupCloseBtn.addEventListener("click", () => {
+    closePopup();
+    if(phase === "popup"){
+      phase = "pickfix";
+      const hl = (current.type === "standard") ? new Set([current.wrongIndex]) : new Set(current.highlights);
+      makeSentenceHTML(current.words, hl, true);
+      setMsg("Pick a replacement to fix the sentence.");
+    }
+  });
+
+  // HOW TO PLAY popup controls
+  if(howtoCloseBtn){
+    howtoCloseBtn.addEventListener("click", () => { beep("click"); closeHowTo(); });
+  }
+  if(howtoStartBtn){
+    howtoStartBtn.addEventListener("click", () => {
+      beep("click");
+      const m = pendingMode || "practice";
+      closeHowTo();
+      begin(m);
+    });
+  }
+  if(howtoBackdrop){
+    howtoBackdrop.addEventListener("click", (e) => {
+      if(e.target === howtoBackdrop){ howtoCloseBtn && howtoCloseBtn.click(); }
+    });
+  }
+
+  popupBackdrop.addEventListener("click", (e) => { if(e.target === popupBackdrop) popupCloseBtn.click(); });
+
+  function endGame(){
+    stopTimer();
+    show(endScreen);
+    const net = pos - neg;
+    const emoji = net >= 20 ? "🏆" : net >= 12 ? "🌟" : net >= 5 ? "🙂" : "💪";
+    finalTitle.textContent = `${emoji} Mission Report: ${player}`;
+    finalSummary.innerHTML = `Net score: <b>${net}</b> ( +${pos} / −${neg} ) • Premium set with Deep Thinking ⭐`;
+
+    decOKEl.textContent = String(decisionOK);
+    decNOEl.textContent = String(decisionNO);
+    fixOKEl.textContent = String(fixOK);
+    fixNOEl.textContent = String(fixNO);
+    timeoutsEl.textContent = String(timeouts);
+
+    reviewBody.innerHTML = "";
+    logs.forEach((l, i) => {
+      const decisionPill =
+        l.decision === "timeout" ? `<span class="pill mid">⏱ Timeout</span>` :
+        l.decision === "correct" ? `<span class="pill ok">✅ Correct</span>` :
+        `<span class="pill no">❌ Incorrect</span>`;
+
+      const fixPill =
+        l.fix === "Correct Fix" ? `<span class="pill ok">🛠 Correct</span>` :
+        l.fix === "Wrong Fix" ? `<span class="pill no">🧩 Wrong</span>` :
+        `<span class="pill mid">—</span>`;
+
+      const typePill = l.type === "Deep ⭐" ? `<span class="pill mid">Deep ⭐</span>` : `<span class="pill mid">Standard</span>`;
+
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td><b>${i+1}</b></td>
+        <td>${escapeHTML(l.sentence)}</td>
+        <td>${decisionPill}</td>
+        <td>${fixPill}</td>
+        <td>${escapeHTML(l.finalSentence)}</td>
+        <td>${typePill}</td>
+      `;
+      reviewBody.appendChild(tr);
+    });
+  }
+
+  restartBtn.addEventListener("click", () => begin(mode));
+  backHomeBtn.addEventListener("click", () => {
+    stopTimer();
+    show(startScreen);
+    modeTagEl.textContent = "Mode: —";
+    timerBox.classList.remove("show");
+  });
+
+  practiceBtn.addEventListener("click", () => openHowTo("practice"));
+  challengeBtn.addEventListener("click", () => openHowTo("challenge"));
+
+  function escapeHTML(str){
+    return String(str)
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+})();
+</script>
+</body>
+</html>
